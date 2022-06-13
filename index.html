@@ -6,18 +6,17 @@
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">     
     <title>Document</title>
 </head>
-<div id="container">
-
-</div>
-
 <body>
-  
-    <script type="module">        
-        
-        import Slide  from "./js/slide.js";
-        const slide = new Slide('#container',3000);
-        slide.init()        
-        
+    <section style="position:relative;top:0px">
+        <div id="container"></div>    
+    </section>
+    <!-- <div style="position:relative;top:500px">
+        <div id="container2"></div>
+    </div>   -->
+    <script type="module">       
+        import Slide  from "./js/slide.js";     
+        const slide = new Slide('#container',3000, true);
+        slide.init()
     </script>
 </body>
 </html>

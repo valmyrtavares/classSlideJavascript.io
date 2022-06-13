@@ -1,25 +1,30 @@
 import images  from "./api/imagens.js";
 export default class Slide{
 
-    constructor(container,velocity){
+    constructor(container,velocity, pointWay){
         this.container = document.querySelector(container);
         this.velocity=velocity ||1500
+        this.pointWay = pointWay
         this.count = 0
     }
 
     createElements(){
         const div = document.createElement('div');    
+        div.style.overflow = "hidden";
         this.createButton();           
         images.forEach(item =>{
             this.tagImage = document.createElement('img')
             this.tagImage.setAttribute('src', item.img)
             this.tagImage.style.display = "none"
+            this.tagImage.style.width = "100%"
             div.appendChild(this.tagImage)
         })
         div.style.width = "100%"
         this.container.appendChild(div)
         this.showImage()
-        this.createPoint();
+        if(this.pointWay){
+            this.createPoint();
+        }
     }
     createButton(){
         this.container.style.position = "relative"
@@ -57,6 +62,7 @@ export default class Slide{
         images.forEach((item,index)=>{           
             const divs = document.createElement('div')
             divs.style.background="red";
+            divs.setAttribute("id", "point")
             divs.style.borderRadius="50%";
             divs.style.width="15px";            
             divs.style.height="15px";
@@ -66,37 +72,77 @@ export default class Slide{
             divPoint.appendChild(divs)
         })
         this.container.appendChild(divPoint)      
+        this.point = document.querySelectorAll("#point")        
     }
     setPoint(index){
-        console.log(index)    
+       
+        for(let i = 0; i<this.imgCapture.length; i++){
+            this.imgCapture[i].style.display="none";
+            this.point[i].style.background="red";
+        }   
+        this.count = index
+        console.log(this.count)
+        clearInterval(this.stopSlide);   
+        this.imgCapture[this.count].style.display="block";  
+        this.point[this.count].style.background="black";      
+        this.showImage()
+    }
+
+    forward(){        
+        for(let i = 0; i<this.imgCapture.length; i++){
+            this.imgCapture[i].style.display="none";
+            this.pointWay? this.point[i].style.background="red":""; 
+        }      
+        this.count++
+       if(this.count > this.imgCapture.length-1){
+           this.count=0
+       }
+       clearInterval(this.stopSlide);   
+        this.imgCapture[this.count].style.display="block";   
+        this.pointWay? this.point[this.count].style.background="black":"";      
+        this.showImage()
+        console.log(this.count)    
+        
     }
 
 
-    forward(){
-        console.log('forward')
-    }
     back(){
-        console.log('back')
+        for(let i = 0; i<this.imgCapture.length; i++){
+            this.imgCapture[i].style.display="none";
+            this.pointWay? this.point[i].style.background="red":"";   
+        }      
+        this.count--
+       if(this.count < 0){
+           this.count=this.imgCapture.length-1
+       }
+       clearInterval(this.stopSlide);   
+        this.imgCapture[this.count].style.display="block";     
+        this.pointWay? this.point[this.count].style.background="black":"";    
+        this.showImage()
+        console.log(this.count) 
     }
 
 
     showImage(){                
-        const imgCapture = document.querySelectorAll('img')
-        this.stopSlide = setInterval(()=>{
-        for(let i = 0; i<imgCapture.length; i++){
-            imgCapture[i].style.display="none";
+        this.imgCapture = document.querySelectorAll('img')
+        this.imgCapture[this.count].style.display="block";         
+        this.stopSlide = setInterval(()=>{           
+        for(let i = 0; i<this.imgCapture.length; i++){
+           this.imgCapture[i].style.display="none";
+          this.pointWay? this.point[i].style.background="red":"";   
         }
-       imgCapture[this.count].style.display="block";  
-       this.count++  
-       if(this.count>imgCapture.length-1){
-           this.count=0
-       }
-       console.log(this.count)
-        }, this.velocity)       
+        this.count++  
+        if(this.count>this.imgCapture.length-1){
+            this.count=0
+        }         
+        this.imgCapture[this.count].style.display="block";  
+
+      this.pointWay? this.point[this.count].style.background="black":""; 
+   
+        }, this.velocity)   
     }
 
-    init(){
-        console.log(typeof images);
+    init(){     
         this.createElements();
     }
 }
