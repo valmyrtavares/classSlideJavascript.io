@@ -75,7 +75,6 @@ export default class Slide{
         this.point = document.querySelectorAll("#point")        
     }
     setPoint(index){
-       
         for(let i = 0; i<this.imgCapture.length; i++){
             this.imgCapture[i].style.display="none";
             this.point[i].style.background="red";
@@ -101,8 +100,7 @@ export default class Slide{
         this.imgCapture[this.count].style.display="block";   
         this.pointWay? this.point[this.count].style.background="black":"";      
         this.showImage()
-        console.log(this.count)    
-        
+        console.log(this.count)
     }
 
 
@@ -118,8 +116,7 @@ export default class Slide{
        clearInterval(this.stopSlide);   
         this.imgCapture[this.count].style.display="block";     
         this.pointWay? this.point[this.count].style.background="black":"";    
-        this.showImage()
-        console.log(this.count) 
+        this.showImage()       
     }
 
 
@@ -135,10 +132,8 @@ export default class Slide{
         if(this.count>this.imgCapture.length-1){
             this.count=0
         }         
-        this.imgCapture[this.count].style.display="block";  
-
-      this.pointWay? this.point[this.count].style.background="black":""; 
-   
+        this.imgCapture[this.count].style.display="block"; 
+      this.pointWay? this.point[this.count].style.background="black":"";
         }, this.velocity)   
     }
 
