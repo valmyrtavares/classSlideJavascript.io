@@ -1,10 +1,11 @@
-import images  from "./api/imagens.js";
+// import dataImg  from "./api/imagens.js";
 export default class Slide{
 
-    constructor(container,velocity, pointWay){
+    constructor(container,velocity, pointWay, dataImg){
         this.container = document.querySelector(container);
         this.velocity=velocity ||1500
         this.pointWay = pointWay
+        this.dataImg = dataImg
         this.count = 0
     }
 
@@ -12,14 +13,17 @@ export default class Slide{
         const div = document.createElement('div');    
         div.style.overflow = "hidden";
         this.createButton();           
-        images.forEach(item =>{
+        this.dataImg.forEach(item =>{
             this.tagImage = document.createElement('img')
             this.tagImage.setAttribute('src', item.img)
             this.tagImage.style.display = "none"
             this.tagImage.style.width = "100%"
+            this.tagImage.style.margin = "auto"
             div.appendChild(this.tagImage)
         })
         div.style.width = "100%"
+        div.style.minHeight = "300px"
+        div.style.minHeight = "300px"
         this.container.appendChild(div)
         this.showImage()
         if(this.pointWay){
@@ -58,8 +62,8 @@ export default class Slide{
         const divPoint = document.createElement('div');
         divPoint.style.display="flex"
         divPoint.style.justifyContent="space-around"
-        divPoint.style.width="100%"
-        images.forEach((item,index)=>{           
+        divPoint.style.width="100%"       
+        this.dataImg.forEach((item,index)=>{           
             const divs = document.createElement('div')
             divs.style.background="red";
             divs.setAttribute("id", "point")
@@ -122,6 +126,7 @@ export default class Slide{
 
     showImage(){                
         this.imgCapture = document.querySelectorAll('img')
+        console.log(this.imgCapture)
         this.imgCapture[this.count].style.display="block";         
         this.stopSlide = setInterval(()=>{           
         for(let i = 0; i<this.imgCapture.length; i++){
@@ -139,5 +144,8 @@ export default class Slide{
 
     init(){     
         this.createElements();
+    
+        console.log('Começou')
+        
     }
 }
