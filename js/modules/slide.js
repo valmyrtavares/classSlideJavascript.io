@@ -28,7 +28,7 @@ export default class Slide{
         }
     }
     createButton(){
-        this.container.style.position = "relative"
+        //this.container.style.position = "relative"
         const btnContainer= document.createElement('div')
         const btnForward= document.createElement('button')
         const btnBack= document.createElement('button')
@@ -136,7 +136,6 @@ export default class Slide{
         this.point[this.count].classList.add("point_active");      
         this.showImage()
     }
-
     forward(){        
         for(let i = 0; i<this.imgCapture.length; i++){
             this.imgCapture[i].classList.remove("active");
@@ -152,8 +151,6 @@ export default class Slide{
         this.showImage()
         console.log(this.count)
     }
-
-
     back(){
         for(let i = 0; i<this.imgCapture.length; i++){
             this.imgCapture[i].classList.remove("active");
@@ -168,9 +165,7 @@ export default class Slide{
        this.pointWay? this.point[this.count].classList.add("point_active"):"";  
         this.showImage()       
     }
-
-
-    showImage(){                
+    showImage(){
         this.imgCapture = document.querySelectorAll('img')      
         this.imgCapture[this.count].classList.add('active');         
         this.stopSlide = setInterval(()=>{           
@@ -182,12 +177,13 @@ export default class Slide{
         if(this.count>this.imgCapture.length-1){
             this.count=0
         }
+        console.log(this.count)
         this.imgCapture[this.count].classList.add('active'); 
       this.pointWay? this.point[this.count].classList.add("point_active"):"";
         }, this.velocity)   
     }
 
-    init(){     
+    init(){             
         this.createElements();
     }
 }
