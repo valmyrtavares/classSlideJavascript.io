@@ -20,8 +20,9 @@ export default class Slide{
             this.tagImage.classList.add("tag_image")           
             div.appendChild(this.tagImage)
         })
-       
-        this.container.appendChild(div)
+        if(this.container!=null){
+            this.container.appendChild(div)
+        }       
         this.showImage()
         if(this.pointWay){
             this.createPoint();
@@ -41,7 +42,9 @@ export default class Slide{
      
         btnContainer.appendChild(btnBack)
         btnContainer.appendChild(btnForward)
-        this.container.appendChild(btnContainer)
+        if(this.container!=null){
+            this.container.appendChild(btnContainer)
+        }
         btnForward.addEventListener('click',()=>{
             this.forward()})
         btnBack.addEventListener('click',()=>{
@@ -121,7 +124,9 @@ export default class Slide{
             })
             divPoint.appendChild(divs)
         })
-        this.container.appendChild(divPoint)      
+        if(this.container){
+            this.container.appendChild(divPoint)
+        }
         this.point = document.querySelectorAll("#point")        
     }
     setPoint(index){
@@ -139,7 +144,9 @@ export default class Slide{
     forward(){        
         for(let i = 0; i<this.imgCapture.length; i++){
             this.imgCapture[i].classList.remove("active");
-            this.pointWay? this.point[i].classList.remove("point_active"):""; 
+            if(this.pointWay){
+                this.pointWay? this.point[i].classList.remove("point_active"):"";
+            }
         }      
         this.count++
        if(this.count > this.imgCapture.length-1){
@@ -147,7 +154,9 @@ export default class Slide{
        }
        clearInterval(this.stopSlide);   
        this.imgCapture[this.count].classList.add('active');     
-       this.pointWay? this.point[this.count].classList.add("point_active"):"";      
+       if(this.pointWay){
+           this.pointWay? this.point[this.count].classList.add("point_active"):"";
+       }
         this.showImage()
         console.log(this.count)
     }
@@ -176,7 +185,7 @@ export default class Slide{
         this.count++  
         if(this.count>this.imgCapture.length-1){
             this.count=0
-        }
+        }      
         console.log(this.count)
         this.imgCapture[this.count].classList.add('active'); 
       this.pointWay? this.point[this.count].classList.add("point_active"):"";
@@ -184,6 +193,7 @@ export default class Slide{
     }
 
     init(){             
+            this.dataImg
         this.createElements();
     }
 }
