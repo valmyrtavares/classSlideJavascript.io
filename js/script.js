@@ -3,8 +3,8 @@ import images  from "./api/imagens.js";
 import images1  from "./api/imagens1.js"; 
 
 
-const slide = new Slide('#container',1000, true, images);
-slide.init();
+const primeiro = new Slide('#container',3000, true, images, );
+primeiro.init();
 
-const segundo = new Slide('#lux',1000, true, images1);           
+const segundo = new Slide('#lux',3000, true, images1, );           
 segundo.init();

@@ -4,6 +4,9 @@ export default class Slide{
     constructor(container,velocity, pointWay, dataImg){
         this.container = document.querySelector(container);
         this.velocity=velocity ||1500
+        this.classe =  this.createString(6)
+        this.point = this.createString(6)
+        this.btn_container =this.createString(6)
         this.pointWay = pointWay
         this.dataImg = dataImg
         this.count = 0
@@ -16,11 +19,13 @@ export default class Slide{
         this.createButton();           
         this.dataImg.forEach(item =>{
             this.tagImage = document.createElement('img')
+            this.tagImage.setAttribute("id", this.classe)
             this.tagImage.setAttribute('src', item.img)
             this.tagImage.classList.add("tag_image")           
             div.appendChild(this.tagImage)
-        })
+        })       
         if(this.container!=null){
+            this.container.style.position = "relative";
             this.container.appendChild(div)
         }       
         this.showImage()
@@ -28,8 +33,7 @@ export default class Slide{
             this.createPoint();
         }
     }
-    createButton(){
-        //this.container.style.position = "relative"
+    createButton(){      
         const btnContainer= document.createElement('div')
         const btnForward= document.createElement('button')
         const btnBack= document.createElement('button')
@@ -117,7 +121,7 @@ export default class Slide{
         this.dataImg.forEach((item,index)=>{           
             const divs = document.createElement('div')
             divs.classList.add("divs")
-            divs.setAttribute("id", "point")
+            divs.setAttribute("id",  this.point)
           
             divs.addEventListener('click',()=>{
                 this.setPoint(index)
@@ -127,7 +131,7 @@ export default class Slide{
         if(this.container){
             this.container.appendChild(divPoint)
         }
-        this.point = document.querySelectorAll("#point")        
+        this.point = document.querySelectorAll("#"+ this.point)        
     }
     setPoint(index){
         for(let i = 0; i<this.imgCapture.length; i++){
@@ -135,7 +139,7 @@ export default class Slide{
             this.point[i].classList.remove("point_active");
         }   
         this.count = index
-        console.log(this.count)
+      
         clearInterval(this.stopSlide);   
         this.imgCapture[this.count].classList.add('active');     
         this.point[this.count].classList.add("point_active");      
@@ -158,7 +162,7 @@ export default class Slide{
            this.pointWay? this.point[this.count].classList.add("point_active"):"";
        }
         this.showImage()
-        console.log(this.count)
+     
     }
     back(){
         for(let i = 0; i<this.imgCapture.length; i++){
@@ -175,7 +179,7 @@ export default class Slide{
         this.showImage()       
     }
     showImage(){
-        this.imgCapture = document.querySelectorAll('img')      
+        this.imgCapture = document.querySelectorAll("#"+this.classe)             
         this.imgCapture[this.count].classList.add('active');         
         this.stopSlide = setInterval(()=>{           
         for(let i = 0; i<this.imgCapture.length; i++){
@@ -186,14 +190,22 @@ export default class Slide{
         if(this.count>this.imgCapture.length-1){
             this.count=0
         }      
-        console.log(this.count)
+     
         this.imgCapture[this.count].classList.add('active'); 
       this.pointWay? this.point[this.count].classList.add("point_active"):"";
         }, this.velocity)   
     }
+     createString(tamanho){
+        var StringAleatoria = "";
+        var caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for(var i=0; i<tamanho; i++){
+            StringAleatoria += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+        }
+        return StringAleatoria       
+    }
 
-    init(){             
-            this.dataImg
+    init(){
         this.createElements();
+        console.log(this.classe)        
     }
 }
