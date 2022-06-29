@@ -25,7 +25,7 @@ export default class Slide{
             div.appendChild(this.tagImage)
         })       
         if(this.container!=null){
-            this.container.style.position = "relative";
+            this.container.classList.add("global_container");
             this.container.appendChild(div)
         }       
         this.showImage()
@@ -59,6 +59,11 @@ export default class Slide{
         this.head = document.querySelector('head')
         const style = document.createElement('style');
         style.innerHTML = `
+        .global_container{
+            position:relative;
+            margin:50px auto;
+            background: gray;
+        }
         .main_container{
              overflow:hidden;
              width:100%;
@@ -78,7 +83,7 @@ export default class Slide{
            display:flex;
            justify-content:space-between;
            position:absolute;
-           top:100px;
+           top:50%;
         }
         .btn_back{
            font-size:40px;
@@ -206,6 +211,6 @@ export default class Slide{
 
     init(){
         this.createElements();
-        console.log(this.classe)        
+        console.log(this.dataImg)        
     }
 }
