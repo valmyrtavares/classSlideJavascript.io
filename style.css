@@ -1,1 +1,11 @@
 
+.nova_caixa{
+    display: flex;
+    justify-content: space-around;
+}
+.nova_caixa div{
+  width: 500px;
+}
+div{
+    width:300px
+}

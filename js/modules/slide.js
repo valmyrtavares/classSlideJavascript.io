@@ -67,8 +67,8 @@ export default class Slide{
         .main_container{
              overflow:hidden;
              width:100%;
-             min-height:300px;
-             max-height:300px;
+             min-height:200px;
+             max-height:200px;
         }
         .tag_image{
             display:none;
@@ -106,12 +106,14 @@ export default class Slide{
             display:flex;
             justify-content:space-around;
             width:100%;
+            min-height:20px;
          }
          .divs{
             background:red;
-            border-radius:50%;
-            width:15px;            
-            height:15px;           
+            border-radius:30%;
+            width:5px;            
+            height:15px;      
+            margin-right:8px;     
          }
          .point_active{
             background:black !important;
